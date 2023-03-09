@@ -27,16 +27,16 @@ public:
     bool release(SQLConnection&& cont);
 
 private:
-    SQLConnPool(int maxNum_=50, int initialNum=5);
+    SQLConnPool(int maxNum_=50, int initialNum=10);
     ~SQLConnPool();
 private:
-    int maxNum;
-    int curNum;
-    int busyNum;
-    bool stop;
-    std::mutex mt;
+    int maxNum; // 最大生成连接数
+    int curNum; // 当前已有连接数
+    int busyNum;    // 当前正在使用连接数
+    bool stop; 
+    std::mutex mt;  // 互斥量，保护连接取、还
     std::condition_variable cond;
-    std::list<SQLConnection> freeQue;
+    std::list<SQLConnection> freeQue;   // 当前的所有空闲的连接
     std::string host;
     std::string name;
     std::string password;

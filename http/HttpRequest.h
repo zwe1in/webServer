@@ -52,13 +52,13 @@ private:
     bool parseHeader(const char* start, const char* end);
     bool parseBody(const char* start, const char* end);
 private:
-    PARSE_STATE state;
-    Method method;
-    std::string version, path, query;
-    kvMap headers;
-    kvMap postData;
-    int contentLength;
-    bool isKeepAlive;
+    PARSE_STATE state;  // 当前解析状态
+    Method method;      // Http请求方法
+    std::string version, path, query;   // 版本、路径、请求参数
+    kvMap headers;  // 请求头集合
+    kvMap postData; // Post请求参数
+    int contentLength;  // Body长度
+    bool isKeepAlive;   // 是否长连接
 };
 
 

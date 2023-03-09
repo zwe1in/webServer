@@ -30,15 +30,15 @@ private:
     void handleWrite(int callFd);
     void handlePipe();
 private:
-    int maxReleaseTime;
-    TimeWheel timeWheel;
-    Socket acceptor;
-    std::unordered_map<int, connWeakPtr> connections;
+    int maxReleaseTime;     // 每个链接无活动下，最大生存时间
+    TimeWheel timeWheel;    // 时间轮
+    Socket acceptor;    // 负责监听并连接的fd
+    std::unordered_map<int, connWeakPtr> connections;   // 目前所有客户连接
     Epoller poller;
-    std::string root;
+    std::string root;   // 根目录
     bool stop;
-    bool tickTime;
-    BalancePool threadPond;
+    bool tickTime;  // 定时是否到时，该tick
+    BalancePool threadPond; // 线程池
     
 };
 

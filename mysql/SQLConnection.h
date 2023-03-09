@@ -18,8 +18,8 @@ public:
         const char* host_, 
         unsigned int port_);
     ~SQLConnection();
-    bool exec(const char* statement);
-    bool query(const char* statement, std::vector<std::vector<std::string>>& res);
+    bool exec(const char* statement);   // 更新、删除、插入任务
+    bool query(const char* statement, std::vector<std::vector<std::string>>& res);  // 查询任务
     bool operator==(const SQLConnection& rhs);
 private:
     MYSQL* sql;
