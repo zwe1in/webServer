@@ -9,7 +9,6 @@
 #include <sys/time.h>
 #include <time.h>
 #include <stdio.h>
-// #include "../utils/LockFreeQueue.h"
 #include "../utils/BlockQueue.h"
 #include <string>
 #include <string.h>
@@ -43,14 +42,14 @@ private:
     }
     void asyncWrite();
 private:
-    LOGTARGET target;
-    std::ofstream ofile;
-    char* buffer;
-    bool isAsync;
-    bool stop;
-    BlockQueue<std::string> *que;
-    std::mutex mt;
-    std::thread writeThread;
+    LOGTARGET target;       // 输出到文件 or 标准I/O
+    std::ofstream ofile;    // 文件输出流
+    char* buffer;           // 日志写缓存
+    bool isAsync;   // 是否启动异步日志
+    bool stop;      
+    BlockQueue<std::string> *que;   // 消息队列，使用的阻塞队列
+    std::mutex mt;                  // 互斥量
+    std::thread writeThread;        // 异步日志的写线程
 };
 
 #define LOG_INFO(format, ...) Log::getInstance()->writeLog(INFO, __FILE__, __func__, __LINE__, format, ##__VA_ARGS__)
